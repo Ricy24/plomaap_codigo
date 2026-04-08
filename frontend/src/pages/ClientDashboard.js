@@ -73,8 +73,15 @@ const ClientDashboard = () => {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <img src="/logo.png" alt="PlomApp" className="dashboard-logo" />
-        <span className="dashboard-title">Cliente</span>
+        <div className="brand-panel">
+          <div className="logo-wrapper">
+            <img src="/logo.png" alt="PlomApp" className="dashboard-logo" />
+          </div>
+          <div>
+            <span className="dashboard-title">Cliente</span>
+            <span className="dashboard-subtitle">Gestiona tus solicitudes, técnicos y el historial desde un panel claro y enfocado.</span>
+          </div>
+        </div>
         <div className="user-info">
           <span>{user?.name}</span>
           <button onClick={handleLogout} className="btn-logout">Cerrar Sesión</button>

@@ -64,8 +64,15 @@ const TechnicianDashboard = () => {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <img src="/logo.png" alt="PlomApp" className="dashboard-logo" />
-        <span className="dashboard-title">Técnico</span>
+        <div className="brand-panel">
+          <div className="logo-wrapper">
+            <img src="/logo.png" alt="PlomApp" className="dashboard-logo" />
+          </div>
+          <div>
+            <span className="dashboard-title">Técnico</span>
+            <span className="dashboard-subtitle">Administra trabajos, estados y tu perfil con una interfaz moderna y azulada.</span>
+          </div>
+        </div>
         <div className="user-info">
           <span>{user?.name}</span>
           <button onClick={handleLogout} className="btn-logout">Cerrar Sesión</button>

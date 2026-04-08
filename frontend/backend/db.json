@@ -47,6 +47,34 @@
       "experience": null,
       "active": true,
       "createdAt": "2026-04-08T20:38:46.091Z"
+    },
+    {
+      "id": 5,
+      "email": "Sneiderpinzon1310@gmail.com",
+      "password": "$2b$10$hIj6Up05o6Y71hqkLXadr.Y1aMJ1ab4k1/k9x5UX/TgO3Pa//TSrS",
+      "name": "Kevin Sneider Pinzon Barrientos",
+      "role": "client",
+      "phone": "3227569178",
+      "address": "Cra2b #89 Sur 54",
+      "specialty": null,
+      "rating": null,
+      "experience": null,
+      "active": true,
+      "createdAt": "2026-04-08T21:38:28.652Z"
+    },
+    {
+      "id": 6,
+      "email": "co@gmail.com",
+      "password": "$2b$10$zuU3bXUQB62qXUPwQTVZCOhawUuAYVwrufZ5a.N9ejZ/EQHeT/TwC",
+      "name": "s",
+      "role": "client",
+      "phone": "123456789",
+      "address": "222",
+      "specialty": null,
+      "rating": null,
+      "experience": null,
+      "active": true,
+      "createdAt": "2026-04-08T21:44:54.211Z"
     }
   ]
 }

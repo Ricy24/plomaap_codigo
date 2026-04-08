@@ -90,8 +90,15 @@ const AdminDashboard = () => {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <img src="/logo.png" alt="PlomApp" className="dashboard-logo" />
-        <span className="dashboard-title">Administrador</span>
+        <div className="brand-panel">
+          <div className="logo-wrapper">
+            <img src="/logo.png" alt="PlomApp" className="dashboard-logo" />
+          </div>
+          <div>
+            <span className="dashboard-title">Administrador</span>
+            <span className="dashboard-subtitle">Control total del sistema con métricas y gestión de usuarios en un entorno azul y claro.</span>
+          </div>
+        </div>
         <div className="user-info">
           <span>{user?.name}</span>
           <button onClick={handleLogout} className="btn-logout">Cerrar Sesión</button>
@@ -130,63 +137,97 @@ const AdminDashboard = () => {
           {/* Stats */}
           {activeTab === 'stats' && stats && (
             <section>
-              <h2>Dashboard del Sistema</h2>
-              <div className="stats-grid">
-                <div className="stat-card">
-                  <div className="stat-icon"><FaUsers /></div>
-                  <div className="stat-value">{stats.totalUsers}</div>
-                  <div className="stat-label">Usuarios Totales</div>
+              <div className="admin-top-row">
+                <div className="admin-hero-card">
+                  <div>
+                    <p className="eyebrow">Resumen Ejecutivo</p>
+                    <h3>Bienvenido de vuelta, {user?.name?.split(' ')[0] || 'Administrador'}</h3>
+                    <p>Monitorea el comportamiento del sistema, revisa métricas clave y toma decisiones rápidamente.</p>
+                  </div>
+                  <span className="status-pill">En línea</span>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon">😊</div>
-                  <div className="stat-value">{stats.clients}</div>
-                  <div className="stat-label">Clientes</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-icon"><FaWrench /></div>
-                  <div className="stat-value">{stats.technicians}</div>
-                  <div className="stat-label">Técnicos</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-icon"><FaCheck /></div>
-                  <div className="stat-value">{stats.activeUsers}</div>
-                  <div className="stat-label">Usuarios Activos</div>
+                <div className="admin-search-card">
+                  <label className="search-label" htmlFor="adminSearch">Buscar</label>
+                  <div className="search-box">
+                    <input id="adminSearch" type="text" placeholder="Buscar usuarios, solicitudes o quejas..." />
+                  </div>
                 </div>
               </div>
 
-              <div className="stats-grid">
-                <div className="stat-card">
-                  <div className="stat-icon"><FaClipboard /></div>
-                  <div className="stat-value">{stats.totalRequests}</div>
-                  <div className="stat-label">Total de Solicitudes</div>
+              <div className="admin-summary-grid">
+                <div className="overview-card primary">
+                  <div className="overview-card-title">Usuarios Totales</div>
+                  <div className="overview-card-value">{stats.totalUsers}</div>
+                  <div className="overview-card-meta">Clientes {stats.clients} · Técnicos {stats.technicians}</div>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon"><FaCheck /></div>
-                  <div className="stat-value">{stats.completedRequests}</div>
-                  <div className="stat-label">Completadas</div>
+                <div className="overview-card">
+                  <div className="overview-card-title">Solicitudes</div>
+                  <div className="overview-card-value">{stats.totalRequests}</div>
+                  <div className="overview-card-meta">Completadas {stats.completedRequests} · Pendientes {stats.pendingRequests}</div>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon">⏳</div>
-                  <div className="stat-value">{stats.pendingRequests}</div>
-                  <div className="stat-label">Pendientes</div>
+                <div className="overview-card">
+                  <div className="overview-card-title">Ingresos</div>
+                  <div className="overview-card-value">$ {stats.totalIncome}</div>
+                  <div className="overview-card-meta">Ingreso total estimado</div>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon">💰</div>
-                  <div className="stat-value">$ {stats.totalIncome}</div>
-                  <div className="stat-label">Ingresos Totales</div>
+                <div className="overview-card">
+                  <div className="overview-card-title">Quejas</div>
+                  <div className="overview-card-value">{stats.totalComplaints}</div>
+                  <div className="overview-card-meta">Resueltas {stats.resolvedComplaints}</div>
                 </div>
               </div>
 
-              <div className="stats-grid">
-                <div className="stat-card">
-                  <div className="stat-icon">⚠️</div>
-                  <div className="stat-value">{stats.totalComplaints}</div>
-                  <div className="stat-label">Total de Quejas</div>
+              <div className="admin-report-grid">
+                <div className="report-card report-large">
+                  <div className="report-card-header">
+                    <div>
+                      <h3>Actividad de solicitudes</h3>
+                      <p>Últimas 24 horas</p>
+                    </div>
+                    <span className="badge">Actualizado</span>
+                  </div>
+                  <div className="report-row">
+                    <div className="mini-card">
+                      <span>Solicitud nueva</span>
+                      <strong>{stats.pendingRequests}</strong>
+                    </div>
+                    <div className="mini-card">
+                      <span>Solicitudes cerradas</span>
+                      <strong>{stats.completedRequests}</strong>
+                    </div>
+                    <div className="mini-card">
+                      <span>Usuarios activos</span>
+                      <strong>{stats.activeUsers}</strong>
+                    </div>
+                  </div>
+                  <div className="report-chart-placeholder">Gráfico de rendimiento</div>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon">✓</div>
-                  <div className="stat-value">{stats.resolvedComplaints}</div>
-                  <div className="stat-label">Quejas Resueltas</div>
+
+                <div className="report-card report-sidebar">
+                  <div className="report-card-header">
+                    <div>
+                      <h3>Estado general</h3>
+                      <p>Resumen rápido</p>
+                    </div>
+                  </div>
+                  <div className="metric-list">
+                    <div className="metric-item">
+                      <span>Clientes</span>
+                      <strong>{stats.clients}</strong>
+                    </div>
+                    <div className="metric-item">
+                      <span>Técnicos</span>
+                      <strong>{stats.technicians}</strong>
+                    </div>
+                    <div className="metric-item">
+                      <span>Quejas resueltas</span>
+                      <strong>{stats.resolvedComplaints}</strong>
+                    </div>
+                    <div className="metric-item">
+                      <span>Valor promedio</span>
+                      <strong>$ {stats.totalIncome ? Math.round(stats.totalIncome / Math.max(1, stats.totalRequests)) : 0}</strong>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
