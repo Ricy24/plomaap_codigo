@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@plomaap.com",
+      "password": "$2b$10$1AEAZWnQDt/2.2BGpWJbj.2Vy9a6ISSWYAWY4Xsx6tuhjewA9jk/m",
+      "name": "Admin System",
+      "role": "admin",
+      "phone": "1234567890",
+      "active": true,
+      "createdAt": "2023-10-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "email": "client@plomaap.com",
+      "password": "$2b$10$uOEaePvo5JN5mpWHivF6H.2iE3ccdB6oZ4On4QlTXSSDJ6sueToOG",
+      "name": "Juan Cliente",
+      "role": "client",
+      "phone": "9876543210",
+      "address": "Calle 123 #456",
+      "active": true,
+      "createdAt": "2023-10-01T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "email": "tech@plomaap.com",
+      "password": "$2b$10$/VZd.sfLmOg.mbU6RekS2.PMNAsLzUfcpKCLHKiB6eQ2XdqghKoe2",
+      "name": "Carlos Técnico",
+      "role": "technician",
+      "phone": "5555555555",
+      "specialty": "Plomería",
+      "rating": 4.8,
+      "experience": "Más de 5 años",
+      "active": true,
+      "createdAt": "2023-10-01T00:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "email": "s@gmail.com",
+      "password": "$2b$10$zpUY/GNhzQGlpCNb06ZKbeENyiyOuspEYcK5KHFh4XD/254nvSnpW",
+      "name": "samca",
+      "role": "client",
+      "phone": "123456789",
+      "address": "a",
+      "specialty": null,
+      "rating": null,
+      "experience": null,
+      "active": true,
+      "createdAt": "2026-04-08T20:38:46.091Z"
+    }
+  ]
+}

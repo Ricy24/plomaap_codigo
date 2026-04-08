@@ -1,46 +1,43 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 const { verifyToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Datos simulados de usuarios
-let users = [
-  {
-    id: 1,
-    email: 'admin@plomaap.com',
-    password: bcrypt.hashSync('admin123', 10),
-    name: 'Admin System',
-    role: 'admin',
-    phone: '1234567890',
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    email: 'client@plomaap.com',
-    password: bcrypt.hashSync('client123', 10),
-    name: 'Juan Cliente',
-    role: 'client',
-    phone: '9876543210',
-    address: 'Calle 123 #456',
-    createdAt: new Date()
-  },
-  {
-    id: 3,
-    email: 'tech@plomaap.com',
-    password: bcrypt.hashSync('tech123', 10),
-    name: 'Carlos Técnico',
-    role: 'technician',
-    phone: '5555555555',
-    specialty: 'Plomería',
-    rating: 4.8,
-    experience: 'Más de 5 años',
-    createdAt: new Date()
-  }
-];
+const DB_FILE = './db.json';
 
-let nextUserId = 4;
+// Cargar usuarios desde db.json
+let users = [];
+function loadUsers() {
+  try {
+    const data = fs.readFileSync(DB_FILE, 'utf8');
+    const db = JSON.parse(data);
+    users = db.users || [];
+  } catch (err) {
+    console.error('Error loading db.json:', err);
+    users = [];
+  }
+}
+
+// Guardar usuarios en db.json
+function saveUsers() {
+  try {
+    const db = { users };
+    fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
+  } catch (err) {
+    console.error('Error saving db.json:', err);
+  }
+}
+
+// Calcular el próximo ID
+function getNextUserId() {
+  return users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+}
+
+// Cargar usuarios al iniciar
+loadUsers();
 
 // Registro
 router.post('/register', (req, res) => {
@@ -55,7 +52,7 @@ router.post('/register', (req, res) => {
   }
 
   const newUser = {
-    id: nextUserId++,
+    id: getNextUserId(),
     email,
     password: bcrypt.hashSync(password, 10),
     name,
@@ -70,6 +67,7 @@ router.post('/register', (req, res) => {
   };
 
   users.push(newUser);
+  saveUsers();
 
   const token = jwt.sign(
     { id: newUser.id, email: newUser.email, role: newUser.role, name: newUser.name },
@@ -160,6 +158,7 @@ router.post('/change-password', verifyToken, (req, res) => {
   }
 
   user.password = bcrypt.hashSync(newPassword, 10);
+  saveUsers();
 
   res.json({ message: 'Contraseña actualizada exitosamente' });
 });
@@ -172,6 +171,8 @@ router.put('/profile', verifyToken, (req, res) => {
   if (name) user.name = name;
   if (phone) user.phone = phone;
   if (address && user.role === 'client') user.address = address;
+
+  saveUsers();
 
   res.json({ message: 'Perfil actualizado', user });
 });
